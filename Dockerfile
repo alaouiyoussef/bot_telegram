@@ -1,10 +1,13 @@
 FROM python:3.11-slim
 
-# Installer Chrome et chromedriver
 RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
     && rm -rf /var/lib/apt/lists/*
+
+# Affiche les chemins exacts de chromium et chromedriver
+RUN which chromium || which chromium-browser || find / -name "chromium*" 2>/dev/null
+RUN which chromedriver || find / -name "chromedriver*" 2>/dev/null
 
 WORKDIR /app
 COPY requirements.txt .
