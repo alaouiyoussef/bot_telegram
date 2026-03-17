@@ -2,6 +2,7 @@ import json
 import os
 import re
 import time
+from httpx import options
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -21,12 +22,13 @@ def start_driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
 
-    if os.environ.get("RAILWAY_ENVIRONMENT"):        # Sur Railway
-        options.binary_location = "/usr/bin/chromium"
-        driver = webdriver.Chrome(
-            service=Service("/usr/bin/chromedriver"),
-            options=options,
-        )
+    if os.environ.get("RAILWAY_ENVIRONMENT"):
+     options.binary_location = "/usr/bin/chromium"
+     driver = webdriver.Chrome(
+        service=Service("/usr/bin/chromedriver-linux64/chromedriver"),
+        options=options,
+    )
+        
     else:                                            # Sur ton PC local
         driver = webdriver.Chrome(
             service=Service(ChromeDriverManager().install()),
