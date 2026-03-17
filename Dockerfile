@@ -5,9 +5,8 @@ RUN apt-get update && apt-get install -y \
     chromium-driver \
     && rm -rf /var/lib/apt/lists/*
 
-# Affiche les chemins exacts de chromium et chromedriver
-RUN which chromium || which chromium-browser || find / -name "chromium*" 2>/dev/null
-RUN which chromedriver || find / -name "chromedriver*" 2>/dev/null
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROMEDRIVER_BIN=/usr/bin/chromedriver
 
 WORKDIR /app
 COPY requirements.txt .
