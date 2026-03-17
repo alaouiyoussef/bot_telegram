@@ -21,18 +21,12 @@ def start_driver():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
+    options.binary_location = "/usr/bin/chromium"
 
-    if os.environ.get("RAILWAY_ENVIRONMENT"):
-        options.binary_location = os.environ.get("CHROME_BIN", "/usr/bin/chromium")
-        driver = webdriver.Chrome(
-            service=Service(os.environ.get("CHROMEDRIVER_BIN", "/usr/bin/chromedriver")),
-            options=options,
-        )
-    else:
-        driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
-            options=options,
-        )
+    driver = webdriver.Chrome(
+        service=Service("/usr/bin/chromedriver"),
+        options=options,
+    )
     return driver
  
  
