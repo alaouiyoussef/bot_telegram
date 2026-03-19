@@ -16,19 +16,12 @@ URL = "https://www.marchespublics.gov.ma/index.php?page=entreprise.EntrepriseAdv
  
 def start_driver():
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--window-size=1920,1080")
-    options.binary_location = "/usr/bin/chromium"
-
     driver = webdriver.Chrome(
-        service=Service("/usr/bin/chromedriver"),
+        service=Service(ChromeDriverManager().install()),
         options=options,
     )
+    driver.maximize_window()
     return driver
- 
  
 def category(driver, wait):
     domaine = wait.until(

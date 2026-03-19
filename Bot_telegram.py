@@ -4,11 +4,15 @@ import asyncio
 import subprocess
 import sys
 from datetime import datetime
+import token
 from telegram import Bot
 from telegram.error import TelegramError
+import os
+from dotenv import load_dotenv
 
-TOKEN     = "8658834053:AAGV7rg607ukfWJXEseeF_IfrEjYosjqCyw"
-CHAT_ID   = "5756054596"
+load_dotenv()
+TOKEN = os.getenv("TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 JSON_FILE = "marches.json"
 INTERVALLE_HEURES = 6
 
@@ -52,6 +56,7 @@ async def envoyer_message(bot, texte):
     except TelegramError as e:
         print(f"[ERREUR ENVOI] {type(e).__name__}: {e}")
     await asyncio.sleep(1)
+
 
 
 async def envoyer_en_lots(bot, marches):
